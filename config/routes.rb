@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'apartments/index'
+
+  get 'apartments/new'
+
+  get 'apartments/create'
+
+  get 'apartments/edit'
+
+  get 'apartments/show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
