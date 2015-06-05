@@ -1,7 +1,7 @@
-= simple_form_for :apartment, url: '/apartments', html: { class: 'form-horizontal' }, wrapper: :horizontal_form, required: false do |f|
-  = f.error_notification
-  = f.input :description, as: :text, placeholder: 'Описание объекта', label: 'Описание', required: false
-  = f.input :renter, placeholder: 'Введите ФИО', label: 'ФИО', required: false
-  = f.input :phone1, placeholder: 'Телефон', label: 'Телефон', required: false
+div.container.container-padding-top
+  div.row
+    div.col-md-2
+    div.col-md-8
+      = render 'object'
+    div.col-md-2
 
-  = f.button 'submit', class: "btn btn-lg btn-success"
