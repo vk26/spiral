@@ -1,6 +1,6 @@
 class ApartmentsController < ApplicationController
   def index
-    @apartment = Apartment.all
+    @apartments = Apartment.all
   end
 
   def new
@@ -8,7 +8,7 @@ class ApartmentsController < ApplicationController
 
   def create
     if Apartment.create!(get_params)
-      redirect_to 'index'
+      redirect_to apartments_path
     else
       render 'edit'
     end
