@@ -1,21 +1,30 @@
-h1 Объекты
-table.table.table-hover
-  thead
-    tr
-      th #
-      th Описание
-      th ФИО
-      th Телефон
-  tbody
-    - @apartments.each_with_index { |a, i|
-    tr
-      td
-        = i+1
-      td
-        = a.description
-      td
-        = a.renter
-      td
-        = a.phone1
-    - }
-= link_to 'Создать объект', new_apartment_path
+div.container-body
+  div.row
+    div.col-md-2
+    div.col-md-9
+      h2 Объекты
+  div.row
+    div.col-md-2
+    div.col-md-7
+      
+      table class="table table-hover"
+        thead
+          tr
+            th #
+            th Описание
+            th ФИО
+            th Телефон
+        tbody
+          - @apartments.each_with_index { |a, i|
+          tr
+            td
+              = i+1
+            td
+              = a.description
+            td
+              = a.renter
+            td
+              = a.phone1
+          - }
+    div.col-md-3      
+      = link_to 'Создать объект', new_apartment_path, class: "btn btn-success"
