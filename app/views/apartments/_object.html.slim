@@ -3,4 +3,10 @@
   = f.input :description, as: :text, placeholder: 'Описание объекта', label: 'Описание', required: false
   = f.input :renter, placeholder: 'Введите ФИО', label: 'ФИО', required: false
   = f.input :phone1, placeholder: 'Телефон', label: 'Телефон', required: false
-  = f.button 'submit', 'Создать', class: "btn btn-success"
+  div.container
+    div.row
+      div.col-md-2
+      div.col-md-10
+        div.button-group-padding
+          = f.button 'submit', 'Создать', class: 'btn btn-success'
+ 
