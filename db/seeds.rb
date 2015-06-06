@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+20.times do
+  Apartment.create(
+    description: Faker::Lorem.sentence,
+    renter: Faker::Name.name,
+    phone1: Faker::PhoneNumber.phone_number
+    )
+end

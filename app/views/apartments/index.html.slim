@@ -4,8 +4,8 @@ div.container-padding-top
     div.col-md-9
       h2 Объекты
   div.row
-    div.col-md-2
-    div.col-md-7      
+    div.col-md-1
+    div.col-md-9      
       table class="table table-hover"
         thead
           tr
@@ -26,9 +26,10 @@ div.container-padding-top
             td
               = a.phone1
             td
-              = button_group do
+              container
                 = pill_edit_button_link_to 'edit', edit_apartment_path(a)
+              container  
                 = pill_negative_remove_button_link_to 'delete', apartment_path(a), method: :delete, data: {confirm: 'Удалить объект?'}
           - }
-    div.col-md-3      
+    div.col-md-2      
       = link_to 'Создать объект', new_apartment_path, class: "btn btn-success"
