@@ -1,4 +1,4 @@
-= simple_form_for :apartment, url: '/apartments', html: { class: 'form-horizontal' }, wrapper: :horizontal_form, required: false do |f|
+= simple_form_for @apartment, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, required: false do |f|
   = f.error_notification
   = f.input :description, as: :text, placeholder: 'Описание объекта', label: 'Описание', required: false
   = f.input :renter, placeholder: 'Введите ФИО', label: 'ФИО', required: false
@@ -8,5 +8,5 @@
       div.col-md-2
       div.col-md-10
         div.button-group-padding
-          = f.button 'submit', 'Создать', class: 'btn btn-success'
+          = f.button 'submit', 'Сохранить', class: 'btn btn-success'
  

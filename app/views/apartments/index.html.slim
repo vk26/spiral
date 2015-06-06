@@ -13,6 +13,7 @@ div.container-padding-top
             th Описание
             th ФИО
             th Телефон
+            th Действие
         tbody
           - @apartments.each_with_index { |a, i|
           tr
@@ -24,6 +25,9 @@ div.container-padding-top
               = a.renter
             td
               = a.phone1
+            td
+              = link_to 'edit', edit_apartment_path(a)
+              = link_to 'delete', apartment_path(a), method: :delete, data: {confirm: 'Удалить объект?'}
           - }
     div.col-md-3      
       = link_to 'Создать объект', new_apartment_path, class: "btn btn-success"

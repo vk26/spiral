@@ -4,6 +4,7 @@ class ApartmentsController < ApplicationController
   end
 
   def new
+    @apartment = Apartment.new
   end
 
   def create
@@ -15,6 +16,22 @@ class ApartmentsController < ApplicationController
   end
 
   def edit
+    @apartment = Apartment.find_by_id(params[:id])
+  end
+
+  def update
+    @apartment = Apartment.find_by_id(params[:id])
+    if @apartment.update(get_params)
+      redirect_to apartments_path
+    else
+      render 'edit'
+    end    
+  end
+
+  def destroy
+    @apartment = Apartment.find_by_id(params[:id])
+    @apartment.destroy
+    redirect_to apartments_path  
   end
 
   def show
