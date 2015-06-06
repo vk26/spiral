@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/johnrees/css3buttons_rails_helpers.git
+  revision: e88e8353006c1d9fcd077a06c9cff43d032baf01
+  specs:
+    css3buttons (1.0.1)
+      actionpack (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -168,6 +175,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.4)
   byebug
   coffee-rails (~> 4.1.0)
+  css3buttons!
   jbuilder (~> 2.0)
   jquery-rails
   pg

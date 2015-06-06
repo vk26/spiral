@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap-generators', '~> 3.3.4'
 gem "slim-rails"
 gem 'simple_form'
+gem 'css3buttons', :git => 'git://github.com/johnrees/css3buttons_rails_helpers.git'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'

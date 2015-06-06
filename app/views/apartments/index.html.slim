@@ -26,8 +26,9 @@ div.container-padding-top
             td
               = a.phone1
             td
-              = link_to 'edit', edit_apartment_path(a)
-              = link_to 'delete', apartment_path(a), method: :delete, data: {confirm: 'Удалить объект?'}
+              = button_group do
+                = pill_edit_button_link_to 'edit', edit_apartment_path(a)
+                = pill_negative_remove_button_link_to 'delete', apartment_path(a), method: :delete, data: {confirm: 'Удалить объект?'}
           - }
     div.col-md-3      
       = link_to 'Создать объект', new_apartment_path, class: "btn btn-success"
