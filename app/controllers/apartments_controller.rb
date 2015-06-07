@@ -1,4 +1,6 @@
 class ApartmentsController < ApplicationController
+  before_action :find_apartment, only: [:edit, :update, :destroy, :show]
+
   def index
     @apartments = Apartment.all
   end
@@ -17,11 +19,9 @@ class ApartmentsController < ApplicationController
   end
 
   def edit
-    @apartment = Apartment.find(params[:id])
   end
 
   def update
-    @apartment = Apartment.find(params[:id])
     if @apartment.update(get_params)
       redirect_to apartments_path
     else
@@ -30,7 +30,6 @@ class ApartmentsController < ApplicationController
   end
 
   def destroy
-    @apartment = Apartment.find(params[:id])
     @apartment.destroy
     redirect_to apartments_path  
   end
@@ -42,5 +41,9 @@ class ApartmentsController < ApplicationController
 
   def get_params
     params.require(:apartment).permit(:description, :renter,:phone1)    
+  end
+
+  def find_apartment
+    @apartment = Apartment.find(params[:id])
   end
 end
