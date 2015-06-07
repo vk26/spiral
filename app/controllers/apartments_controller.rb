@@ -8,19 +8,20 @@ class ApartmentsController < ApplicationController
   end
 
   def create
-    if Apartment.create!(get_params)
+    @apartment = Apartment.create(get_params)
+    if @apartment.save
       redirect_to apartments_path
     else
-      render 'edit'
+      render 'new'
     end
   end
 
   def edit
-    @apartment = Apartment.find_by_id(params[:id])
+    @apartment = Apartment.find(params[:id])
   end
 
   def update
-    @apartment = Apartment.find_by_id(params[:id])
+    @apartment = Apartment.find(params[:id])
     if @apartment.update(get_params)
       redirect_to apartments_path
     else
@@ -29,7 +30,7 @@ class ApartmentsController < ApplicationController
   end
 
   def destroy
-    @apartment = Apartment.find_by_id(params[:id])
+    @apartment = Apartment.find(params[:id])
     @apartment.destroy
     redirect_to apartments_path  
   end
