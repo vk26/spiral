@@ -10,11 +10,11 @@ class ApartmentsController < ApplicationController
   end
 
   def create
-    @apartment = Apartment.create(get_params)
+    @apartment = Apartment.create(apartment_params)
     if @apartment.save
       redirect_to apartments_path
     else
-      render 'new'
+      render "new"
     end
   end
 
@@ -22,16 +22,16 @@ class ApartmentsController < ApplicationController
   end
 
   def update
-    if @apartment.update(get_params)
+    if @apartment.update(apartment_params)
       redirect_to apartments_path
     else
-      render 'edit'
-    end    
+      render "edit"
+    end
   end
 
   def destroy
     @apartment.destroy
-    redirect_to apartments_path  
+    redirect_to apartments_path
   end
 
   def show
@@ -39,8 +39,8 @@ class ApartmentsController < ApplicationController
 
   private
 
-  def get_params
-    params.require(:apartment).permit(:description, :renter,:phone1)    
+  def apartment_params
+    params.require(:apartment).permit(:description, :renter, :phone1)
   end
 
   def find_apartment
