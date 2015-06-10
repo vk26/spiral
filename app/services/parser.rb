@@ -1,11 +1,13 @@
-require 'nokogiri'
 require 'open-uri'
-require 'watir'
-require 'watir-webdriver'
-require 'byebug'
 
 class Parser
+  HEADLESS_RUN = false
+
   def start
+    if HEADLESS_RUN
+      headless = Headless.new
+      headless.start
+    end
     doc = Nokogiri::HTML(open('https://www.avito.ru/irkutsk/kvartiry/sdam/na_dlitelnyy_srok'));
     item_list=[]
     doc.css('h3.title a').each do |link|  
@@ -36,9 +38,10 @@ class Parser
       browser.close  
       Watir::Wait.until(8) { sleep(6); true }     
     end
+    headless.destroy if HEADLESS_RUN
   end
 
-  def initialize(*arg={})
+  def initialize()
     
   end
 
