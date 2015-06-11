@@ -37,6 +37,12 @@ class ApartmentsController < ApplicationController
   def show
   end
 
+  def download_ads
+    avito = Parser.new
+    avito.start
+    redirect_to apartments_path
+  end
+
   private
 
   def apartment_params

@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class Parser
-  HEADLESS_RUN = false
+  HEADLESS_RUN = true
 
   def create_apartment(**params)
     item = Apartment.create(params)
@@ -12,7 +12,7 @@ class Parser
     end
   end
 
-  def start(count=3)
+  def start(count=2)
     if HEADLESS_RUN
       headless = Headless.new
       headless.start
@@ -46,7 +46,6 @@ class Parser
       phone_selector = browser.span :class => 'button-text'
       item[:phone1] = phone_selector.text
       # item_list << item
-      byebug
       create_apartment(description: item[:description], renter: item[:renter], phone1: item[:phone1])
       browser.close  
       Watir::Wait.until(8) { sleep(6); true }     
