@@ -32,8 +32,6 @@ div.container-padding-top
                 = pill_negative_remove_button_link_to 'delete', apartment_path(a), method: :delete, data: {confirm: 'Удалить объект?'}
           - }
     div.col-md-2 
-      container     
-        = link_to 'Создать объект', new_apartment_path, class: "btn btn-success btn-apart-action"
-      container
-        = link_to 'Загрузить', '/apartments/download_ads', class: "btn btn-success btn-apart-action"
+      = link_to 'Создать объект', new_apartment_path, class: "btn btn-success btn-apart-action"
+      = link_to 'Загрузить', '/apartments/download_ads', class: "btn btn-success btn-apart-action"
 

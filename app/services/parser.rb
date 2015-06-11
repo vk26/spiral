@@ -3,24 +3,17 @@ require 'open-uri'
 class Parser
   HEADLESS_RUN = true
 
-  def create_apartment(**params)
-    item = Apartment.create(params)
-    if item.save
-      puts item.inspect
-    else
-      puts 'mot created'
-    end
-  end
-
   def start(count=2)
     if HEADLESS_RUN
       headless = Headless.new
       headless.start
     end
+    
     doc = Nokogiri::HTML(open('https://www.avito.ru/irkutsk/kvartiry/sdam/na_dlitelnyy_srok'));
-    item_list=[]
+    
     doc.css('h3.title a').each_with_index do |link, index|  
       break if ++index == count
+      delay if index != 0
 
       browser = Watir::Browser.new :firefox
       item = {}
@@ -45,19 +38,27 @@ class Parser
       browser.link(:class => "action-show-number").when_present.click
       phone_selector = browser.span :class => 'button-text'
       item[:phone1] = phone_selector.text
-      # item_list << item
+
       create_apartment(description: item[:description], renter: item[:renter], phone1: item[:phone1])
       browser.close  
-      Watir::Wait.until(8) { sleep(6); true }     
     end
     headless.destroy if HEADLESS_RUN
-    item_list
+    
   end
 
   def initialize()
     
   end
 
+  private
+  def create_apartment(**params)
+    item = Apartment.create(params)
+  end
+
+  def delay
+    puts 'delay'
+    Watir::Wait.until(8) { sleep(6); true }  
+  end
 
 end
 
