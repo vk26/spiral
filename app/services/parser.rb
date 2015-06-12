@@ -56,8 +56,7 @@ class Parser
   end
 
   def delay
-    puts 'delay'
-    Watir::Wait.until(8) { sleep(6); true }  
+    Watir::Wait.until(8) { sleep(3); true }  
   end
 
 end
