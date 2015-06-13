@@ -9,7 +9,7 @@ gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap-generators', '~> 3.3.4'
-gem "slim-rails"
+gem "slim-rails", '~>3.0'
 gem 'simple_form'
 gem 'css3buttons', :git => 'git://github.com/johnrees/css3buttons_rails_helpers.git'
 
