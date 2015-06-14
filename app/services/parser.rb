@@ -2,6 +2,7 @@ require 'open-uri'
 
 class Parser
   HEADLESS_RUN = true
+  DELAY_VAL = 3
 
   def start(count=2)
     if HEADLESS_RUN
@@ -11,7 +12,7 @@ class Parser
     
     doc = Nokogiri::HTML(open('https://www.avito.ru/irkutsk/kvartiry/sdam/na_dlitelnyy_srok'));
     
-    doc.css('h3.title a').each_with_index do |link, index|  
+    doc.css('h3.title a').each_with_index do |link, index|
       break if ++index == count
       delay if index != 0
 
@@ -27,12 +28,12 @@ class Parser
 
       begin
         browser.goto "https://m.avito.ru#{link['href']}"
-      rescue Exception => msg 
+      rescue Exception => msg
         browser.close
         browser = Watir::Browser.new :firefox
         browser.goto "https://m.avito.ru#{link['href']}"
         puts msg
-      end  
+      end
 
       puts browser.link(:class => "action-show-number").exists?
       browser.link(:class => "action-show-number").when_present.click
@@ -40,7 +41,7 @@ class Parser
       item[:phone1] = phone_selector.text
 
       create_apartment(description: item[:description], renter: item[:renter], phone1: item[:phone1])
-      browser.close  
+      browser.close
     end
     headless.destroy if HEADLESS_RUN
     
@@ -56,7 +57,7 @@ class Parser
   end
 
   def delay
-    Watir::Wait.until(8) { sleep(3); true }  
+    Watir::Wait.until(8) { sleep(DELAY_VAL); true }
   end
 
 end
