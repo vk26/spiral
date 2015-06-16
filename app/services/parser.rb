@@ -20,12 +20,12 @@ class Parser
       item = {}
       link = ad['href']
       item_doc = Nokogiri::HTML(open(item_link_avito(link)));
-      item[:renter] = item_doc.css('#seller').text.gsub(/\w|\s/,'')
+      item[:renter] = item_doc.css('#seller strong').text.gsub(/\w|\s/,'')
       item[:description] = item_doc.css('div#desc_text').text
-      # item[:price] = item_doc.css('.p_i_price').text.gsub(/\D/,'')
-      # item[:city] = item_doc.css('div#map').text
-      # item[:address] = item_doc.css('span#toggle_map').text
-      # item[:id_ad] = item_doc.css('span#toggle_map').text
+      item[:price] = item_doc.css('.p_i_price').text.gsub(/\D/,'')
+      item[:city] = item_doc.css('div#map').text
+      item[:address] = item_doc.css('span#toggle_map').text
+      item[:id_ad] = item_doc.css('span#toggle_map').text
       begin
         browser.goto item_link_avito(link, :mobile)
       rescue Exception => msg
@@ -38,7 +38,7 @@ class Parser
       phone_selector = browser.span class: 'button-text'
       item[:phone1] = phone_selector.text
 
-      Apartment.create(item)
+      Apartment.create(get_apartment_params(item))
       browser.close
     end
     headless.destroy if HEADLESS_RUN
@@ -52,6 +52,10 @@ class Parser
 
   def self.delay
     Watir::Wait.until(8) { sleep(DELAY_VAL); true }
+  end
+
+  def self.get_apartment_params(item_params)
+    item_params.reject { |key,value| !Apartment.column_names.include? key.to_s }
   end
 
   def self.item_link_avito(link, type = :default)
