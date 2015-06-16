@@ -8,7 +8,7 @@ $(document).ready(function () {
   $('#loading-btn').click(function () {
     var btn = $(this)
     btn.button('loading')
-    $.ajax('/apartments/download_ads',{
+    $.ajax(btn.data('url'),{
       type: 'GET'
     }).always(function () {
       btn.button('reset')
