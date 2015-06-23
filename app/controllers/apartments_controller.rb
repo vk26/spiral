@@ -38,7 +38,7 @@ class ApartmentsController < ApplicationController
   end
 
   def download_ads
-    Parser.get_avito
+    Parser.pull_apartments
     redirect_to apartments_path
   end
 

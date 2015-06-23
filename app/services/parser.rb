@@ -5,6 +5,11 @@ class Parser
   DELAY_VAL    = 3
   AVITO_SOURCE = "https://www.avito.ru/irkutsk/kvartiry/sdam/na_dlitelnyy_srok".freeze
   class << self
+    def pull_apartments
+      get_avito
+    end
+
+    private
     def get_avito(count = 2)
       run do
         doc = Nokogiri::HTML(open(AVITO_SOURCE))
@@ -14,9 +19,9 @@ class Parser
           item_ad = Hash.new.tap do |item|
             link = ad['href']
             item_doc = Nokogiri::HTML(open(item_link_avito(link)))
-            item[:renter] = item_doc.css('#seller strong').text.gsub(/\w|\s/,'')
+            item[:renter] = item_doc.css('#seller strong').text.gsub(/\w|\s/, '')
             item[:description] = item_doc.css('div#desc_text').text
-            item[:price] = item_doc.css('.p_i_price').text.gsub(/\D/,'')
+            item[:price] = item_doc.css('.p_i_price').text.gsub(/\D/, '')
             item[:city] = item_doc.css('div#map').text
             item[:address] = item_doc.css('span#toggle_map').text
             item[:id_ad] = item_doc.css('span#toggle_map').text
@@ -27,8 +32,7 @@ class Parser
       end
     end
 
-    private
-    def run (&block)
+    def run(&block)
       if HEADLESS_RUN
         headless = Headless.new
         headless.start
@@ -40,22 +44,27 @@ class Parser
     end
 
     def get_phone_avito (link)
-      browser = browser_init
+      browser_init
       begin
-        browser.goto item_link_avito(link, :mobile)
+        @browser.goto item_link_avito(link, :mobile)
       rescue Exception => msg
-        browser.close
-        browser = browser_init
-        browser.goto item_link_avito(link, :mobile)
+        browser_destroy
+        browser_init
+        @browser.goto item_link_avito(link, :mobile)
       end
-      browser.link(class: "action-show-number").when_present.click
-      phone = browser.span(class: 'button-text').text
-      browser.close
+      @browser.link(class: "action-show-number").when_present.click
+      phone = @browser.span(class: 'button-text').text
+      browser_destroy
       phone
     end
 
     def browser_init
-      Watir::Browser.new :firefox
+      @browser ||= Watir::Browser.new :firefox
+    end
+
+    def browser_destroy
+      @browser.close
+      @browser = nil
     end
 
     def delay
