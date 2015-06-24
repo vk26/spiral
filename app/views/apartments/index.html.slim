@@ -1,0 +1,36 @@
+div.container-padding-top
+  div.row
+    div.col-md-2
+    div.col-md-9
+      h2 Объекты
+  div.row
+    div.col-md-1
+    div.col-md-9      
+      table class="table table-hover"
+        thead
+          tr
+            th #
+            th Описание
+            th ФИО
+            th Телефон
+            th Действие
+        tbody
+          - @apartments.each_with_index { |a, i|
+          tr
+            td
+              = i+1
+            td
+              = a.description
+            td
+              = a.renter
+            td
+              = a.phone1
+            td
+              container
+                = pill_edit_button_link_to 'edit', edit_apartment_path(a)
+              container  
+                = pill_negative_remove_button_link_to 'delete', apartment_path(a), method: :delete, data: {confirm: 'Удалить объект?'}
+          - }
+    div.col-md-2 
+      = link_to 'Создать объект', new_apartment_path, class: "btn btn-success btn-apart-action"
+      button type="button" id="loading-btn" data-loading-text="Loading..." data-url="#{apartments_download_ads_path}" class="btn btn-success btn-apart-action" Загрузить

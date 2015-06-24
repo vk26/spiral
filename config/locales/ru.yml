@@ -1,0 +1,4 @@
+ru:
+  validation:
+    apartment:
+      phone: "Номер телефона не должен содержать буквы"

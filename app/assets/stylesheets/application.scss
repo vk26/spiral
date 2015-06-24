@@ -1,0 +1,17 @@
+/*
+*= require css3buttons
+*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.container-padding-top {
+  @extend .container;
+  padding-top: 50px;
+}
+
+.btn-apart-action {
+  margin-left: 5px;
+  margin-top: 10px;
+  width: 130px;  
+}
