@@ -1,8 +1,13 @@
-= simple_form_for apartment, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, required: false do |f|
+= simple_form_for apartment, html: { class: 'form-horizontal', :multipart => true }, wrapper: :horizontal_form, required: false do |f|
   = f.error_notification
   = f.input :description, as: :text, placeholder: 'Описание объекта', label: 'Описание', required: false
   = f.input :renter, placeholder: 'Введите ФИО', label: 'ФИО', required: false
   = f.input :phone1, placeholder: 'Телефон', label: 'Телефон', required: false
+  - apartment.assets.each do |asset|
+    = image_tag asset.photo.url(:thumb)
+  - apartment.assets.new
+  = f.fields_for :assets do |asset|
+    = asset.input :photo, as: :file if asset.object.new_record?
   div.container
     div.row
       div.col-md-2
