@@ -6,6 +6,8 @@ gem 'rails', '4.2.0'
 gem 'puma'
 gem 'pg'
 
+gem "paperclip", "~> 4.3"
+
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap-generators', '~> 3.3.4'

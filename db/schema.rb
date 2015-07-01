@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701151358) do
+ActiveRecord::Schema.define(version: 20150701152552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,12 @@ ActiveRecord::Schema.define(version: 20150701151358) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "apartment_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "assets", ["apartment_id"], name: "index_assets_on_apartment_id", using: :btree
