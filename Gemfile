@@ -3,7 +3,8 @@ ruby '2.2.2'
 
 gem 'rails', '4.2.0'
 
-gem 'puma'
+gem 'unicorn', group: :development
+gem 'puma', group: :production
 gem 'pg'
 
 gem "paperclip", "~> 4.3"
