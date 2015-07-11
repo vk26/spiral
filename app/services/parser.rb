@@ -10,7 +10,7 @@ class Parser
     end
 
     private
-    def get_avito(count = 2)
+    def get_avito(count = 1)
       run do
         doc = Nokogiri::HTML(open(AVITO_SOURCE))
         doc.css('h3.title a').each_with_index do |ad, index|
@@ -25,9 +25,10 @@ class Parser
             item[:city] = item_doc.css('div#map').text
             item[:address] = item_doc.css('span#toggle_map').text
             item[:id_ad] = item_doc.css('span#toggle_map').text
+            item[:assets] = get_photos_avito(link)
             item[:phone1] = get_phone_avito(link)
           end         
-          Apartment.create(get_apartment_params(item_ad))
+          apartment = Apartment.create(get_apartment_params(item_ad))
         end
       end
     end
@@ -41,6 +42,13 @@ class Parser
       yield
 
       headless.destroy if HEADLESS_RUN
+    end
+
+    def get_photos_avito(link)
+      item_doc_mob = Nokogiri::HTML(open(item_link_avito(link, :mobile)))
+      photo_links = item_doc_mob.css("li.photo-container img").select { |el| !el.nil? }.map { |el| "http:"+el['src']}
+      photo_links += item_doc_mob.css("li > span").select { |el| !el['data-img-src'].nil? }.map { |el| "http:"+el['data-img-src']}
+      photo_links.map { |photo_link| Asset.create(photo: URI.parse(photo_link)) }
     end
 
     def get_phone_avito (link)
@@ -71,8 +79,13 @@ class Parser
       Watir::Wait.until(8) { sleep(DELAY_VAL); true }
     end
 
+    def apartment_fields
+      list = Apartment.column_names 
+      list << "assets"
+    end
+
     def get_apartment_params(item_params)
-      item_params.reject { |key,value| !Apartment.column_names.include? key.to_s }
+      item_params.reject { |key,value| !apartment_fields.include? key.to_s }
     end
 
     def item_link_avito(link, type = :default)
