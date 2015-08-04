@@ -13,6 +13,7 @@ div.container-padding-top
             th Описание
             th ФИО
             th Телефон
+            th Тип
             th Действие
         tbody
           - @apartments.each_with_index { |a, i|
@@ -25,6 +26,8 @@ div.container-padding-top
               = a.renter
             td
               = a.phone1
+            td
+              = a.type_apartment
             td
               container
                 = pill_edit_button_link_to 'edit', edit_apartment_path(a)

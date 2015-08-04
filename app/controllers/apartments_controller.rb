@@ -45,7 +45,7 @@ class ApartmentsController < ApplicationController
   private
 
   def apartment_params
-    params.require(:apartment).permit(:description, :renter, :phone1, assets_attributes: [:id, :photo])
+    params.require(:apartment).permit(:description, :renter, :phone1, :type_apartment, :price, assets_attributes: [:id, :photo])
   end
 
   def find_apartment

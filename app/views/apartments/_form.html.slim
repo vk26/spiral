@@ -3,6 +3,8 @@
   = f.input :description, as: :text, placeholder: 'Описание объекта', label: 'Описание', required: false
   = f.input :renter, placeholder: 'Введите ФИО', label: 'ФИО', required: false
   = f.input :phone1, placeholder: 'Телефон', label: 'Телефон', required: false
+  = f.input :type_apartment, collection: Apartment::TYPES
+  = f.input :price, as: :integer
   - apartment.assets.each do |asset|
     = image_tag asset.photo.url(:thumb)
   - apartment.assets.new
